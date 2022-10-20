@@ -22,5 +22,8 @@
     "sequelize": "^6.25.3",
     "supertest": "^6.3.0",
     "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.5.1"
   }
 }
