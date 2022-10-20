@@ -7,7 +7,6 @@ import { errorHandler } from './src/middlewares/errorHandler.js';
 import logger from 'morgan'
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { nextTick } from 'process';
 
 
 //instantiate express app
@@ -26,11 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json())
 
-//serve public files
+//middleware to serve public files
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "./src/public")));
 
+//invalid url route
 app.get('*', (req, res) => {
     try{
         res.sendFile(path.join(__dirname, './src/public/error.html'));
@@ -42,6 +42,7 @@ app.get('*', (req, res) => {
 // add error middleware
 app.use(errorHandler())
 
+//create server
 app.listen(PORT, () => {
     console.log(`server is listening on http://localhost:${PORT}`)
 })
