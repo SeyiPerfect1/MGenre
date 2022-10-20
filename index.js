@@ -1,9 +1,12 @@
 import bodyParser from 'body-parser';
 import express from 'express';
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 dotenv.config();
 import { dbConnection } from './db.js';
-import { errorHandler } from "./src/middlewares/errorHandler.js"
+import { errorHandler } from './src/middlewares/errorHandler.js';
+import logger from 'morgan'
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
 //instantiate express app
@@ -14,6 +17,8 @@ const PORT = process.env.PORT || 8000;
 //initialize database
 dbConnection()
 
+app.use(logger('dev'));
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -21,9 +26,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
 //serve public files
-app.use(express.static('public'))
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "public")));
 
-
+app.get('*', (req, res) => {
+    res.render('./src/public/error.html');
+  });
 
 // add error middleware
 app.use(errorHandler())
