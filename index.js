@@ -7,6 +7,7 @@ import { errorHandler } from './src/middlewares/errorHandler.js';
 import logger from 'morgan'
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { nextTick } from 'process';
 
 
 //instantiate express app
@@ -31,7 +32,11 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "./src/public")));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './src/public/error.html'));
+    try{
+        res.sendFile(path.join(__dirname, './src/public/error.html'));
+    } catch(error){
+        next(error)
+    }
   });
 
 // add error middleware
