@@ -2,7 +2,6 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
-import { dbConnection } from './db.js';
 import { errorHandler } from './src/middlewares/errorHandler.js';
 import logger from 'morgan'
 import path from 'path';
@@ -13,9 +12,6 @@ import { fileURLToPath } from 'url';
 const app = express();
 
 const PORT = process.env.PORT || 8000;
-
-//initialize database
-dbConnection()
 
 app.use(logger('dev'));
 
