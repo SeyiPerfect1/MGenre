@@ -1,6 +1,6 @@
-import { CONFIG } from "./config.js";
-import { Sequelize, DataTypes } from "sequelize";
-import * as dotenv from "dotenv";
+const { CONFIG } = require("./config.js");
+const { Sequelize, DataTypes } = require ("sequelize");
+const dotenv = require('dotenv');
 dotenv.config();
 
 let sequelize;

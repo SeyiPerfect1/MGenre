@@ -1,11 +1,10 @@
-import bodyParser from 'body-parser';
-import express from 'express';
-import * as dotenv from 'dotenv';
+const  bodyParser = require('body-parser');
+const express = require('express');
+const dotenv = require('dotenv');
 dotenv.config();
-import { errorHandler } from './src/middlewares/errorHandler.js';
-import logger from 'morgan'
-import path from 'path';
-import { fileURLToPath } from 'url';
+const { errorHandler } = require('./src/middlewares/errorHandler.js');
+const logger = require('morgan');
+const path = require('path');
 
 
 //instantiate express app
@@ -22,8 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
 //middleware to serve public files
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "./src/public")));
 
 //invalid url route

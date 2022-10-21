@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A music inspired app to bring together all lovers of a genre",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest supertest",
     "start": "node index.js"
