@@ -1,8 +1,8 @@
-const { CONFIG } = require('./config.js')
+const CONFIG  = require('./config.js')
 
 module.exports =  {
   development: {
-    username: CONFIG.username,
+    username: CONFIG.user,
     password: CONFIG.password,
     database: CONFIG.database,
     host: CONFIG.host,

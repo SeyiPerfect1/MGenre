@@ -1,4 +1,4 @@
-export const errorHandler = () => (error, req, res, next) => {
+const errorHandler = () => (error, req, res, next) => {
     console.log("path: ", req.path);
     console.log("error: ", error);
     if(error.type==="Redirect"){
@@ -10,3 +10,5 @@ export const errorHandler = () => (error, req, res, next) => {
     }
     next();
 }
+
+module.exports = errorHandler;

@@ -5,7 +5,7 @@ dotenv.config();
 
 let sequelize;
 if (process.env.NODE_ENV === "development") {
-  sequelize = new Sequelize(CONFIG.database, CONFIG.username, CONFIG.password, {
+  sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
     host: CONFIG.host,
     dialect: CONFIG.dialect,
   });
