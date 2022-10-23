@@ -2,7 +2,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
-const { errorHandler } = require("./src/middlewares/errorHandler.js");
+const errorHandler  = require("./src/middlewares/errorHandler.js");
 const logger = require("morgan");
 const path = require("path");
 
