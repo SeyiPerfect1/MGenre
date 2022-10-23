@@ -54,7 +54,7 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.sequelize.sync()
+db.sequelize.sync({ force: false })
 .then(() => {
     console.log('Database & tables synced')
 }).catch(err => {
