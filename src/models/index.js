@@ -17,9 +17,9 @@ const db = {};
 // }
 let sequelize;
 if (process.env.NODE_ENV === "development") {
-  sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
-    host: CONFIG.host,
-    dialect: CONFIG.dialect,
+  sequelize = new Sequelize(config.development.database, config.development.username, config.development.password, {
+    host: config.development.host,
+    dialect: config.development.dialect,
   });
 } else if (process.env.NODE_ENV === "test") {
   sequelize = new Sequelize(process.env.TEST_DATABASE_URL);
