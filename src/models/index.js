@@ -6,15 +6,33 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '../config/dbConfig.js')[env];
+const config = require('../config/dbConfig')[env];
 const db = {};
 
+// let sequelize;
+// if (config.use_env_variable) {
+//   sequelize = new Sequelize(process.env[config.use_env_variable], config);
+// } else {
+//   sequelize = new Sequelize(config.database, config.username, config.password, config);
+// }
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+if (process.env.NODE_ENV === "development") {
+  sequelize = new Sequelize(CONFIG.database, CONFIG.user, CONFIG.password, {
+    host: CONFIG.host,
+    dialect: CONFIG.dialect,
+  });
+} else if (process.env.NODE_ENV === "test") {
+  sequelize = new Sequelize(process.env.TEST_DATABASE_URL);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(process.env.DATABASE_URL);
 }
+
+sequelize.authenticate()
+    .then(() => {
+        console.log(`Connection has been established successfully.`)
+    }).catch((error) => {
+        console.log(`Unable to connect to the database:`, error)
+    })
 
 fs
   .readdirSync(__dirname)
@@ -32,7 +50,15 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+db.sequelize.sync()
+.then(() => {
+    console.log('Database & tables synced')
+}).catch(err => {
+    console.error('unable to sync databases & tables', err)
+})
 
 module.exports = db;
